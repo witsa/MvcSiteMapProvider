@@ -32,9 +32,11 @@ namespace DI.SimpleInjector
             // Settings for MvcMusicStore demo: don't copy into your project
             bool securityTrimmingEnabled = true;
             string[] includeAssembliesForScan = new string[] { "Mvc Music Store" };
+            string resourceFileName = "Mvc.sitemap";
 #else
             bool securityTrimmingEnabled = false;
             string[] includeAssembliesForScan = new string[] { "$AssemblyName$" };
+            string resourceFileName = null;
 #endif
 
             // Extension to allow resolution of arrays by GetAllInstances (natively based on IEnumerable).
@@ -133,12 +135,12 @@ namespace DI.SimpleInjector
                 .Create(new CompositeSiteMapNodeProvider(container.GetInstance<XmlSiteMapNodeProvider>(), container.GetInstance<ReflectionSiteMapNodeProvider>())));
 
             container.RegisterAll<ISiteMapBuilderSet>(
-                ResolveISiteMapBuilderSets(container, securityTrimmingEnabled, enableLocalization, visibilityAffectsDescendants, useTitleIfDescriptionNotProvided));
+                ResolveISiteMapBuilderSets(container, securityTrimmingEnabled, enableLocalization, visibilityAffectsDescendants, useTitleIfDescriptionNotProvided, resourceFileName));
             container.RegisterSingle<ISiteMapBuilderSetStrategy>(() => new SiteMapBuilderSetStrategy(container.GetAllInstances<ISiteMapBuilderSet>().ToArray()));
         }
 
         private static IEnumerable<ISiteMapBuilderSet> ResolveISiteMapBuilderSets(
-            Container container, bool securityTrimmingEnabled, bool enableLocalization, bool visibilityAffectsDescendants, bool useTitleIfDescriptionNotProvided)
+            Container container, bool securityTrimmingEnabled, bool enableLocalization, bool visibilityAffectsDescendants, bool useTitleIfDescriptionNotProvided, string resourceFileName)
         {
             yield return new SiteMapBuilderSet(
                 "default",
@@ -146,6 +148,7 @@ namespace DI.SimpleInjector
                 enableLocalization,
                 visibilityAffectsDescendants,
                 useTitleIfDescriptionNotProvided,
+                resourceFileName,
                 container.GetInstance<ISiteMapBuilder>(),
                 container.GetInstance<ICacheDetails>());
         }

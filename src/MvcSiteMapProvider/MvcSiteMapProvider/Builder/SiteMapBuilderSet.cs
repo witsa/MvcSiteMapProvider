@@ -1,5 +1,6 @@
 ﻿using System;
 using MvcSiteMapProvider.Caching;
+using System.IO;
 
 namespace MvcSiteMapProvider.Builder
 {
@@ -15,6 +16,7 @@ namespace MvcSiteMapProvider.Builder
            bool enableLocalization,
            bool visibilityAffectsDescendants,
            bool useTitleIfDescriptionNotProvided,
+            string resourceFileName,
            ISiteMapBuilder siteMapBuilder,
            ICacheDetails cacheDetails
            )
@@ -33,6 +35,9 @@ namespace MvcSiteMapProvider.Builder
             this.useTitleIfDescriptionNotProvided = useTitleIfDescriptionNotProvided;
             this.siteMapBuilder = siteMapBuilder;
             this.cacheDetails = cacheDetails;
+            this.SiteMapResourceName = resourceFileName;
+
+
         }
 
         /// <summary>
@@ -47,17 +52,18 @@ namespace MvcSiteMapProvider.Builder
             bool enableLocalization,
             ISiteMapBuilder siteMapBuilder,
             ICacheDetails cacheDetails
-            ) 
+            )
             : this(
                 instanceName,
                 securityTrimmingEnabled,
                 enableLocalization,
                 true,
                 true,
+                null,
                 siteMapBuilder,
                 cacheDetails
-            ) 
-        { 
+            )
+        {
         }
 
         protected readonly string instanceName;
@@ -81,6 +87,8 @@ namespace MvcSiteMapProvider.Builder
         }
 
         public virtual string SiteMapCacheKey { get; set; }
+
+        public string SiteMapResourceName { get; set; }
 
         public virtual bool SecurityTrimmingEnabled
         {
@@ -108,5 +116,8 @@ namespace MvcSiteMapProvider.Builder
         }
 
         #endregion
+
+
+
     }
 }

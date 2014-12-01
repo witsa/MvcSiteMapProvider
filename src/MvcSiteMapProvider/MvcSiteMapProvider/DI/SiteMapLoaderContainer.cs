@@ -88,7 +88,7 @@ namespace MvcSiteMapProvider.DI
         private readonly IDynamicSiteMapNodeBuilderFactory dynamicSiteMapNodeBuilderFactory;
         private readonly ISiteMapFactory siteMapFactory;
         private readonly ISiteMapCreator siteMapCreator;
-        
+
         public ISiteMapLoader ResolveSiteMapLoader()
         {
             return new SiteMapLoader(
@@ -107,6 +107,7 @@ namespace MvcSiteMapProvider.DI
                         settings.EnableLocalization,
                         settings.VisibilityAffectsDescendants,
                         settings.UseTitleIfDescriptionNotProvided,
+                        !string.IsNullOrWhiteSpace(settings.SiteMapFileName) ? System.IO.Path.GetFileName(settings.SiteMapFileName) : null,
                         this.ResolveSiteMapBuilder(settings),
                         this.ResolveCacheDetails(settings)
                         )
@@ -171,11 +172,11 @@ namespace MvcSiteMapProvider.DI
         private ISiteMapNodeCreatorFactory ResolveSiteMapNodeCreatorFactory()
         {
             return new SiteMapNodeCreatorFactory(
-                this.siteMapNodeFactory, 
-                this.nodeKeyGenerator, 
+                this.siteMapNodeFactory,
+                this.nodeKeyGenerator,
                 this.siteMapNodeToParentRelationFactory);
         }
-        
+
         private ISiteMapNodeHelperFactory ResolveSiteMapNodeHelperFactory()
         {
             return new SiteMapNodeHelperFactory(

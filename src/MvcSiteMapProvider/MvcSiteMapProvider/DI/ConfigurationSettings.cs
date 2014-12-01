@@ -17,6 +17,7 @@ namespace MvcSiteMapProvider.DI
             this.IncludeRootNodeFromSiteMapFile = bool.Parse(GetConfigurationValueOrFallback("MvcSiteMapProvider_IncludeRootNodeFromSiteMapFile", "true"));
             this.EnableSiteMapFileNestedDynamicNodeRecursion = bool.Parse(GetConfigurationValueOrFallback("MvcSiteMapProvider_EnableSiteMapFileNestedDynamicNodeRecursion", "false"));
             this.SiteMapFileName = GetConfigurationValueOrFallback("MvcSiteMapProvider_SiteMapFileName", "~/Mvc.sitemap");
+            this.SiteMapResourceKey = GetConfigurationValueOrFallback("MvcSiteMapProvider_SiteMapResourceKey", "Mvc.sitemap");
             this.ScanAssembliesForSiteMapNodes = bool.Parse(GetConfigurationValueOrFallback("MvcSiteMapProvider_ScanAssembliesForSiteMapNodes", "false"));
             this.ExcludeAssembliesForScan = GetConfigurationValueOrFallback("MvcSiteMapProvider_ExcludeAssembliesForScan", "")
                 .Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim()).ToList();
@@ -64,5 +65,7 @@ namespace MvcSiteMapProvider.DI
             }
             return defaultValue;
         }
+
+        public string SiteMapResourceKey { get; set; }
     }
 }

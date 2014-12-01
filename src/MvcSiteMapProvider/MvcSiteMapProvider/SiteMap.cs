@@ -610,7 +610,7 @@ namespace MvcSiteMapProvider
         /// </remarks>
         public virtual string ResourceKey
         {
-            get { return this.siteMapSettings.SiteMapCacheKey; }
+            get { return this.siteMapSettings.SiteMapResourceName; }
             set { /* do nothing */ }
         }
 

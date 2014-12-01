@@ -1,3 +1,7 @@
+#WIT SA
+
+* Starting some changes for SiteMap "ResourceKey", using the name of the SiteMap file to lookup in GlobalResource instead of failing using the cache Key...
+
 [![MvcSiteMapProvider Build Status](https://www.myget.org/BuildSource/Badge/mvcsitemapprovider?identifier=7a569f3b-9a67-4cd3-b702-daf7bf061ffb)](https://www.myget.org/gallery/mvcsitemapprovider)
 
 # MvcSiteMapProvider
